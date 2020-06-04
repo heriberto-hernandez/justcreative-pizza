@@ -1,0 +1,19 @@
+{
+	"app" :"Just Creativ",
+	"copyrigt": "© Just Creative 202",
+	"Forgot Your Password?": "¿Olvidaste tu contraseña?",
+	"welcome": "Bienvenido",
+	"Login": "Iniciar Sesión",
+	"Register": "Registrar",
+	"Logout": "Cerrar Sesión",
+	"Name": "Nombre",
+	"Password": "Contraseña",
+	"Confirm": "Confirmar",
+	"Remember Me": "Recuérdame",
+	"E-Mail Address": "Correo Electrónico ",
+	"Verify Your Email Address.": "Verifique su dirección de correo electrónico.",
+	"A fresh verification link has been sent to your email address.":"Se ha enviado un nuevo enlace de verificación a su dirección de correo electrónico.",
+	"Before proceeding, please check your email for a verification link.": "Antes de continuar, revise su correo electrónico para obtener un enlace de verificación.",
+	"If you did not receive the email.": "Si no recibió el correo electrónico.",
+	"click here to request another.": "Haga clic aquí para solicitar otro."
+}

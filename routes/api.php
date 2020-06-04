@@ -17,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResources([
+	'pizza' => 'API\PizzaController',
+	'order' => 'API\OrderController',
+	'size' => 'API\SizeController',
+]);
+Route::get('by-size/{id}',	'API\PizzaController@bySize');
+Route::get('order-details/{id}',	'API\OrderController@orderDetails');
+

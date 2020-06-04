@@ -1,0 +1,1 @@
+INSERT INTO `pizzas` (`id`, `name`, `price`, `sizes_id`, `created_at`, `updated_at`) VALUES (NULL, 'Pepperoni', '50', '1', NULL, NULL), (NULL, 'Pepperoni', '80', '2', NULL, NULL),(NULL, 'Pepperoni', '120', '3', NULL, NULL);
