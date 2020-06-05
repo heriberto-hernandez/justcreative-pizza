@@ -8,7 +8,7 @@ use App\Http\Resources\Pizza as PizzaResources;
 use App\Http\Controllers\Controller;
 
 class PizzaController extends Controller
-{
+{    
     /**
      * Display a listing of the resource.
      *

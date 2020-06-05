@@ -6,6 +6,7 @@ use App\Entities\OrderPizza;
 use Illuminate\Support\Facades\Route;
 use App\Http\Resources\Pizza as PizzaResources;
 use App\Http\Resources\OrderPizza as OrderPizzaResources;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +19,9 @@ use App\Http\Resources\OrderPizza as OrderPizzaResources;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Auth::routes();
-
+Route::get('/', 'HomeController@index');
+Auth::routes(['register' => false]);
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::get('/create-order', 'HomeController@createOrder')->name('create.order');
+Route::get('/order-details/{number_order}', 'HomeController@orderDetails')->name('order.details');
+Route::get('/order-list', 'HomeController@orderList')->name('order.list')->middleware('isadmin');

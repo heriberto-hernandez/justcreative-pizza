@@ -5,8 +5,10 @@ namespace App\Http\Controllers\API;
 use App\Entities\Order;
 use App\Entities\OrderPizza;
 use Illuminate\Http\Request;
-use App\Http\Resources\OrderPizza as OrderPizzaResources;
+use App\Http\Resources\Order as OrderResources;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreOrderPizza;
+use App\Http\Resources\OrderPizza as OrderPizzaResources;
 
 class OrderController extends Controller
 {
@@ -17,7 +19,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        return OrderResources::collection( Order::all()  );
     }
 
     /**
@@ -27,8 +29,19 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {       
+        $order = new Order();     
+        $order->number_order = $request->number_order;
+        $order->date = $request->date; 
+        $order->total = $request->total; 
+        $order->users_id = $request->users_id;
+        $store = $order->save();
+
+        if ($store) {
+            return ['action' => $store, 'data' => $order];
+        }else{
+            return ['action' => $store, 'data' => NULL];;
+        }
     }
 
     /**
@@ -39,7 +52,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        return new OrderResources(Order::where('number_order', $id)->first() );
     }
 
     /**
@@ -51,7 +64,16 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $update = Order::where('number_order', $id)
+          ->update(['total' =>  $request->total]);     
+
+        if ($update) {
+            return response( ['data' => trans('app.msg_ctrl.add_success') ] , 200)
+                  ->header('Content-Type', 'text/plain');
+        }else{
+            return response( ['data' => trans('app.msg_ctrl.update_error') ] , 500)
+                  ->header('Content-Type', 'text/plain');  
+        }
     }
 
     /**
@@ -68,5 +90,37 @@ class OrderController extends Controller
     public function orderDetails($id)
     {
         return OrderPizzaResources::collection( OrderPizza::where('number_order', $id)->get()  );
+    }
+
+    public function removePizzaOrder($order, $pizza, $created)
+    {
+        $deletedRows = OrderPizza::where([
+                                            ['number_order', '=', $order],
+                                            ['pizzas_id', '=', $pizza],
+                                            ['created_at', '=', $created],
+                                        ])->delete();
+        if ($deletedRows) {
+            return response( ['data' => trans('app.msg_ctrl.delete_success') ] , 200)
+                  ->header('Content-Type', 'text/plain');
+        }else{
+            return response( ['data' => trans('app.msg_ctrl.delete_error') ] , 500)
+                  ->header('Content-Type', 'text/plain');  
+        }
+    }
+
+    public function addPizzaOrder(StoreOrderPizza $request)
+    {
+        $order = new OrderPizza;
+        $order->number_order   = $request->number_order;
+        $order->pizzas_id      = $request->pizzas_id;
+        $store = $order->save();
+       
+        if ($store) {
+            return response( ['data' => trans('app.msg_ctrl.add_success') ] , 200)
+                  ->header('Content-Type', 'text/plain');
+        }else{
+            return response( ['data' => trans('app.msg_ctrl.add_error') ] , 500)
+                  ->header('Content-Type', 'text/plain');  
+        }
     }
 }

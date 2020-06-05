@@ -13,7 +13,7 @@
 </head>
 <body>
 	 <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -25,7 +25,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('order.list') }}">{{ __('Order List') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('create.order') }}">{{ __('Create Order') }}</a>
+                        </li>     
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -69,11 +74,39 @@
         </main>
     </div>
 
+    <div class="modal" id="modal_message" tabindex="-1" role="dialog" aria-labelledby="modal_message" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        <i class="fa fa-exclamation-circle fa-5x text-info" aria-hidden="true"></i>
+                        <h4 class="text-black font-weight-medium my-4 text-info" id="modal_message_title">Message</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 	{{-- Optional JavaScript --}}
 	{{-- jQuery first, then Popper.js, then Bootstrap JS --}}
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script>
+        var modalProcessingInformation = $('#processing_information');
+        var modalMessage  = $('#modal_message');
+        var modalMessageAction  = $('#modal_message_action');
+        var setModalMessage = (msg)=> {
+            document.querySelector('#modal_message_title').innerText = msg
+            modalMessage.modal({
+              keyboard: false
+            })
+        }
+        var setModalMessageAction = (msg)=> {
+            document.querySelector('#modal_message_action_title').innerText = msg
+            modalMessageAction.modal({backdrop: 'static', keyboard: false})
+        }       
+    </script>
     @yield('scripts')
 </body>
 </html>
