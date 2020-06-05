@@ -21,7 +21,7 @@ class UserTableSeeder extends Seeder
         $admin->roles()->attach(Role::where('name', 'admin')->first());
 
         $personnel = User::create([
-            'name' => 'Heriberto Hernandez',
+            'name' => 'Alfredo Hernandez',
             'email' => 'hernandezcastell8@gmail.com',
             'password' => Hash::make('pizza-pizza'),
         ]);
